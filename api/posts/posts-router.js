@@ -65,7 +65,7 @@ expressRouter.put('/:id', (req, res) => {
     const { title, contents } = req.body;
     if (!title || !contents) {
         res.status(500).json({
-            message: "The post with the specified ID does not exist",
+            message: "The post information could not be modified",
             error: err.message
         })
     } else {
@@ -73,7 +73,7 @@ expressRouter.put('/:id', (req, res) => {
         postsModel.findById(req.params.id)
             .then(post => {
                 if (!post) {
-                    res.status(404).json({
+                    res.status(400).json({
                         message: "Please provide title and contents for the post",
                         error: err.message
                     })
@@ -92,8 +92,8 @@ expressRouter.put('/:id', (req, res) => {
                 }
             })
             .catch(err => {
-                res.status(500).json({
-                    message: "The post information could not be modified",
+                res.status(404).json({
+                    message: "The post with the specified ID does not exist",
                     error: err.message
                 })
             })
