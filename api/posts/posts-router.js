@@ -21,14 +21,14 @@ expressRouter.get('/:id', async (req, res) => {
     try {
         const post = await postsModel.findById(req.params.id)
         if (!post) {
-            res.status(404).json({
-                message: "The post with the specified ID does not exist",
+            res.status(500).json({
+                message: "The posts information could not be retrieved",
                 error: err.message
             })
         }
     } catch (err) {
         res.status(404).json({
-            message: "The posts information could not be retrieved",
+            message: "The post with the specified ID does not exist",
             error: err.message
         })
     }
@@ -64,7 +64,7 @@ expressRouter.post('/', (req, res) => {
 expressRouter.put('/:id', (req, res) => {
     const { title, contents } = req.body;
     if (!title || !contents) {
-        res.status(400).json({
+        res.status(404).json({
             message: "Please provide title and contents for the post",
             error: err.message
         })
@@ -92,7 +92,7 @@ expressRouter.put('/:id', (req, res) => {
                 }
             })
             .catch(err => {
-                res.status(404).json({
+                res.status(500).json({
                     message: "The post information could not be modified",
                     error: err.message
                 })
@@ -113,7 +113,7 @@ expressRouter.delete('/:id', async (req, res) => {
             res.json(post)
         }
     } catch (err) {
-        res.status(404).json({
+        res.status(500).json({
             message: "The post could not be removed",
             error: err.message
         })
