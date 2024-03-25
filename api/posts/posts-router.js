@@ -64,8 +64,8 @@ expressRouter.post('/', (req, res) => {
 expressRouter.put('/:id', (req, res) => {
     const { title, contents } = req.body;
     if (!title || !contents) {
-        res.status(404).json({
-            message: "Please provide title and contents for the post",
+        res.status(500).json({
+            message: "The post with the specified ID does not exist",
             error: err.message
         })
     } else {
@@ -74,7 +74,7 @@ expressRouter.put('/:id', (req, res) => {
             .then(post => {
                 if (!post) {
                     res.status(404).json({
-                        message: "The post with the specified ID does not exist",
+                        message: "Please provide title and contents for the post",
                         error: err.message
                     })
                 } else {
@@ -104,8 +104,8 @@ expressRouter.delete('/:id', async (req, res) => {
     try {
         const post = await postsModel.findById(req.params.id)
         if (!post) {
-            res.status(404).json({
-                message: "The post with the specified ID does not exist",
+            res.status(500).json({
+                message: "The post could not be removed",
                 error: err.message
             })
         } else {
@@ -113,8 +113,8 @@ expressRouter.delete('/:id', async (req, res) => {
             res.json(post)
         }
     } catch (err) {
-        res.status(500).json({
-            message: "The post could not be removed",
+        res.status(404).json({
+            message: "The post with the specified ID does not exist",
             error: err.message
         })
     }
