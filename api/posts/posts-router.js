@@ -21,14 +21,14 @@ expressRouter.get('/:id', async (req, res) => {
     try {
         const post = await postsModel.findById(req.params.id)
         if (!post) {
-            res.status(400).json({
+            res.status(404).json({
                 message: "The post with the specified ID does not exist",
                 error: err.message
             })
         }
     } catch (err) {
         res.status(500).json({
-            message: "The post with the specified ID does not exist",
+            message: "The posts information could not be retrieved",
             error: err.message
         })
     }
