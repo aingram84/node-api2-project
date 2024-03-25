@@ -139,3 +139,4 @@ expressRouter.get('/:id/comments', async (req, res) => {
         })
     }
 })
+module.exports = server;
