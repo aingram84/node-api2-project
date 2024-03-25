@@ -88,7 +88,7 @@ expressRouter.put('/:id', (req, res) => {
             })
             .then(post => {
                 if (post) {
-                    res.json(post);
+                    res.status(200).json(post);
                 }
             })
             .catch(err => {
