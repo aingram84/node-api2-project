@@ -27,7 +27,7 @@ expressRouter.get('/:id', async (req, res) => {
             })
         }
     } catch (err) {
-        res.status(500).json({
+        res.status(404).json({
             message: "The posts information could not be retrieved",
             error: err.message
         })
@@ -92,7 +92,7 @@ expressRouter.put('/:id', (req, res) => {
                 }
             })
             .catch(err => {
-                res.status(500).json({
+                res.status(404).json({
                     message: "The post information could not be modified",
                     error: err.message
                 })
@@ -113,7 +113,7 @@ expressRouter.delete('/:id', async (req, res) => {
             res.json(post)
         }
     } catch (err) {
-        res.status(500).json({
+        res.status(404).json({
             message: "The post could not be removed",
             error: err.message
         })
